@@ -1,0 +1,4 @@
+Timestamp,Journal,Sentiment,Confidence (%)
+2025-10-25 05:13:47,I am happy,Positive,97.92
+2025-10-25 05:14:42,I am sad,Negative,92.01
+2025-10-25 05:15:19,Today I got 15 marks in test and I was ranked second.,Positive,59.69
