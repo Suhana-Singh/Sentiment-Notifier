@@ -66,3 +66,17 @@ def history():
     else:
         entries = []
     return render_template('history.html', entries=entries)
+
+@app.route('/chart-data')
+def chart_data():
+    if os.path.exists(CSV_FILE):
+        df = pd.read_csv(CSV_FILE)
+        # Use only the last 10 entries
+        df = df.tail(10)
+        data = {
+            "labels": df["Timestamp"].tolist(),
+            "sentiments": df["Sentiment"].tolist()
+        }
+        return data
+    else:
+        return {"labels": [], "sentiments": []}
