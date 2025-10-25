@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Mood History – Happy Harbour</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+  <div class="container">
+    <h1>📜 Your Recent Moods</h1>
+
+    {% if entries %}
+      {% for entry in entries %}
+        <div class="card">
+          <p><strong>{{ entry['Timestamp'] }}</strong></p>
+          <p>{{ entry['Journal'] }}</p>
+          <p>
+            <strong>Mood:</strong> 
+            <span class="sentiment {{ entry['Sentiment']|lower }}">
+              {{ entry['Sentiment'] }}
+            </span> 
+            — {{ entry['Confidence (%)'] }}%
+          </p>
+        </div>
+      {% endfor %}
+    {% else %}
+      <p>No journal entries yet! Write your first one <a href="/">here</a>.</p>
+    {% endif %}
+
+    <a href="/">🏠 Back to Home</a>
+    <a href="/chart.html">📊 View Mood Chart</a>
+  </div>
+</body>
+</html>
