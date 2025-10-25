@@ -55,3 +55,14 @@ def predict():
 
 if __name__ == "__main__":
     app.run(debug=True)
+
+
+@app.route('/history')
+def history():
+    if os.path.exists(CSV_FILE):
+        df = pd.read_csv(CSV_FILE)
+        last_entries = df.tail(5).iloc[::-1]  # show last 5, newest first
+        entries = last_entries.to_dict(orient='records')
+    else:
+        entries = []
+    return render_template('history.html', entries=entries)
