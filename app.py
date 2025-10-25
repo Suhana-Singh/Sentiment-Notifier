@@ -67,6 +67,11 @@ def history():
         entries = []
     return render_template('history.html', entries=entries)
 
+@app.route('/chart')
+def chart():
+    return render_template('chart.html')
+
+
 @app.route('/chart-data')
 def chart_data():
     if os.path.exists(CSV_FILE):
