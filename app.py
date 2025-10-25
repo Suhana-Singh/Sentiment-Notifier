@@ -53,11 +53,10 @@ def predict():
                            sentiment=predicted_label,
                            confidence=round(confidence, 2))
 
-if __name__ == "__main__":
-    app.run(debug=True)
 
 
-@app.route('/history.html')
+
+@app.route('/history')
 def history():
     if os.path.exists(CSV_FILE):
         df = pd.read_csv(CSV_FILE)
@@ -67,7 +66,7 @@ def history():
         entries = []
     return render_template('history.html', entries=entries)
 
-@app.route('/chart.html')
+@app.route('/chart')
 def chart():
     return render_template('chart.html')
 
@@ -85,3 +84,7 @@ def chart_data():
         return data
     else:
         return {"labels": [], "sentiments": []}
+    
+
+if __name__ == "__main__":
+    app.run(debug=True)
