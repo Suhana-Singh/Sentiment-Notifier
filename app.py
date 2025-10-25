@@ -57,7 +57,7 @@ if __name__ == "__main__":
     app.run(debug=True)
 
 
-@app.route('/history')
+@app.route('/history.html')
 def history():
     if os.path.exists(CSV_FILE):
         df = pd.read_csv(CSV_FILE)
@@ -67,7 +67,7 @@ def history():
         entries = []
     return render_template('history.html', entries=entries)
 
-@app.route('/chart')
+@app.route('/chart.html')
 def chart():
     return render_template('chart.html')
 
