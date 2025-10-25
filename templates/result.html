@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Happy Harbour Result</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+  <div class="container">
+    <h1>🌊 Happy Harbour 💖</h1>
+    <p><strong>Your Journal:</strong></p>
+    <div class="card">{{ text }}</div>
+
+    <h2>Mood: 
+      <span class="sentiment {{ sentiment|lower }}">{{ sentiment }}</span>
+    </h2>
+    <p>Confidence: {{ confidence }}%</p>
+
+    <a href="/">🔙 Write Another Entry</a>
+  </div>
+</body>
+</html>
