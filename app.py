@@ -129,8 +129,8 @@ def predict():
 @app.route('/history')
 def history():
     if os.path.exists(CSV_FILE):
-        df = pd.read_csv(CSV_FILE)
-        last_entries = df.tail(5).iloc[::-1]  # show last 5, newest first
+        df = pd.read_csv(CSV_FILE, usecols=[0, 1, 2, 3], on_bad_lines='skip')
+        last_entries = df.tail(5).iloc[::-1]
         entries = last_entries.to_dict(orient='records')
     else:
         entries = []
