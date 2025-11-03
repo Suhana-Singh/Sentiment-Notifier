@@ -8,7 +8,7 @@ import smtplib
 from email.mime.text import MIMEText
 from email.mime.multipart import MIMEMultipart
 from dotenv import load_dotenv
-
+import csv
 # Load environment variables
 load_dotenv()
 
@@ -103,9 +103,9 @@ def predict():
 
     df = pd.DataFrame([data])
     if not os.path.exists(CSV_FILE):
-        df.to_csv(CSV_FILE, index=False)
+        df.to_csv(CSV_FILE, index=False, qouting = csv.QUOTE_ALL)
     else:
-        df.to_csv(CSV_FILE, mode='a', header=False, index=False)
+        df.to_csv(CSV_FILE, mode='a', header=False, index=False, qouting = csv.QUOTE_ALL)
 
     # Handle negative sentiment
     routine = []
