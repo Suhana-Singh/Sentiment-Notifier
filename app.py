@@ -93,7 +93,7 @@ def history():
     else:
         entries = []
     return render_template('history.html', entries=entries)
-
+    
 @app.route('/chart')
 def chart():
     return render_template('chart.html')
