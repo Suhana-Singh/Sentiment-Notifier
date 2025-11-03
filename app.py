@@ -4,6 +4,30 @@ import torch
 import pandas as pd
 import os
 from datetime import datetime
+import smtplib
+from email.mime.text import MIMEText
+from email.mime.multipart import MIMEMultipart
+from dotenv import load_dotenv
+load_dotenv()  # loads .env file
+SENDER_EMAIL = os.getenv("SENDER_EMAIL")
+EMAIL_PASSWORD = os.getenv("EMAIL_PASSWORD")
+
+def send_alert_email(to_email, subject, body):
+    msg = MIMEMultipart()
+    msg['From'] = SENDER_EMAIL
+    msg['To'] = to_email
+    msg['Subject'] = subject
+    msg.attach(MIMEText(body, 'plain'))
+
+    try:
+        with smtplib.SMTP('smtp.gmail.com', 587) as server:
+            server.starttls()
+            server.login(SENDER_EMAIL, EMAIL_PASSWORD)
+            server.send_message(msg)
+            print(f"Email sent to {to_email}")
+    except Exception as e:
+        print(f"Error sending email: {e}")
+
 
 app = Flask(__name__)
 
@@ -24,8 +48,8 @@ def home():
 @app.route('/predict', methods=['POST'])
 def predict():
     text = request.form['journal']
+    emergency_email = request.form['emergency_email']
 
-    # Model prediction
     inputs = tokenizer(text, return_tensors="pt", truncation=True, padding=True)
     with torch.no_grad():
         outputs = model(**inputs)
@@ -33,14 +57,13 @@ def predict():
         predicted_label = labels[torch.argmax(scores).item()]
         confidence = torch.max(scores).item() * 100
 
-    # Save entry to CSV
     data = {
         'Timestamp': datetime.now().strftime("%Y-%m-%d %H:%M:%S"),
         'Journal': text,
         'Sentiment': predicted_label,
-        'Confidence (%)': round(confidence, 2)
+        'Confidence (%)': round(confidence, 2),
+        'Emergency Email': emergency_email
     }
-
     df = pd.DataFrame([data])
 
     if not os.path.exists(CSV_FILE):
@@ -48,23 +71,18 @@ def predict():
     else:
         df.to_csv(CSV_FILE, mode='a', header=False, index=False)
 
+    # Send email if mood is negative
+    if predicted_label == "Negative" and emergency_email:
+        send_alert_email(
+            to_email=emergency_email,
+            subject="Mood Alert: Negative Mood Detected",
+            body=f"A negative mood was detected in the journal entry:\n\n\"{text}\"\n\nConfidence: {round(confidence, 2)}%"
+        )
+
     return render_template('result.html',
                            text=text,
                            sentiment=predicted_label,
                            confidence=round(confidence, 2))
-
-
-
-
-@app.route('/history')
-def history():
-    if os.path.exists(CSV_FILE):
-        df = pd.read_csv(CSV_FILE)
-        last_entries = df.tail(5).iloc[::-1]  # show last 5, newest first
-        entries = last_entries.to_dict(orient='records')
-    else:
-        entries = []
-    return render_template('history.html', entries=entries)
 
 @app.route('/chart')
 def chart():
