@@ -8,7 +8,7 @@ import smtplib
 from email.mime.text import MIMEText
 from email.mime.multipart import MIMEMultipart
 from dotenv import load_dotenv
-import csv
+
 # Load environment variables
 load_dotenv()
 
@@ -103,9 +103,9 @@ def predict():
 
     df = pd.DataFrame([data])
     if not os.path.exists(CSV_FILE):
-        df.to_csv(CSV_FILE, index=False, qouting = csv.QUOTE_ALL)
+        df.to_csv(CSV_FILE, index=False)
     else:
-        df.to_csv(CSV_FILE, mode='a', header=False, index=False, qouting = csv.QUOTE_ALL)
+        df.to_csv(CSV_FILE, mode='a', header=False, index=False)
 
     # Handle negative sentiment
     routine = []
@@ -123,15 +123,7 @@ def predict():
     )
 
 
-@app.route('/history')
-def history():
-    if os.path.exists(CSV_FILE):
-        df = pd.read_csv(CSV_FILE)
-        last_entries = df.tail(5).iloc[::-1]
-        entries = last_entries.to_dict(orient='records')
-    else:
-        entries = []
-    return render_template('history.html', entries=entries)
+
 
 
 @app.route('/history')
