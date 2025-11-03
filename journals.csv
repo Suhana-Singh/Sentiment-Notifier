@@ -12,3 +12,7 @@ Timestamp,Journal,Sentiment,Confidence (%)
 2025-11-02 18:08:28,I am sad,Negative,92.01,harshita26hello@gmail.com
 2025-11-02 18:16:07,I am melancholic,Neutral,53.86,harshita26hello@gmail.com
 2025-11-02 18:17:01,I am dejected and sorrowful,Negative,95.89,harshita26hello@gmail.com
+2025-11-03 19:04:13,i am very sad,Negative,94.31
+2025-11-03 19:04:14,i am very sad,Negative,94.31
+2025-11-03 19:11:19,i want to study but my mood is upset,Negative,87.88
+2025-11-03 19:12:21,i am happy for my project is running properly,Positive,98.52

@@ -15,10 +15,19 @@
       <span class="sentiment {{ sentiment|lower }}">{{ sentiment }}</span>
     </h2>
     <p>Confidence: {{ confidence }}%</p>
+    {% if routine %}
+  <h2>💡 Suggested Routine to Uplift Your Mood</h2>
+  <ul>
+    {% for item in routine %}
+      <li>{{ item }}</li>
+    {% endfor %}
+  </ul>
+  {% endif %}
+
 
     <a href="/">🔙 Write Another Entry</a>
     <a href="/history">📜 View Mood History</a>
-
+    
   </div>
 </body>
 </html>
