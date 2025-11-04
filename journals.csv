@@ -16,3 +16,5 @@ Timestamp,Journal,Sentiment,Confidence (%)
 2025-11-03 19:04:14,i am very sad,Negative,94.31
 2025-11-03 19:11:19,i want to study but my mood is upset,Negative,87.88
 2025-11-03 19:12:21,i am happy for my project is running properly,Positive,98.52
+2025-11-03 20:23:34,I am sad,Negative,92.01
+2025-11-03 20:23:55,I am sad,Negative,92.01
