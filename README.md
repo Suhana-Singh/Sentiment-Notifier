@@ -43,3 +43,7 @@ Happy-Harbour/
 📈 Weekly sentiment trend charts
 💾 Database integration (SQLite / Firebase)
 🧍 User authentication for personal dashboards
+
+OUTPUT
+![WhatsApp Image 2025-11-04 at 00 35 08_1e96b960](https://github.com/user-attachments/assets/d4b679d9-4de7-4ee7-bad6-78436914f0d0)
+
