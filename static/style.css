@@ -245,6 +245,152 @@ body {
   transform: translateY(-3px);
   background: #91B39B;
 }
+/* 🌿 HAPPY HARBOUR – MOOD HISTORY PAGE (page-specific styling) */
+.history-page {
+  background: linear-gradient(to bottom right, rgba(240, 250, 240, 0.5), rgba(255, 255, 255, 0.6));
+}
+
+/* Container */
+.history-page .container {
+  max-width: 900px;
+  margin: 60px auto;
+  padding: 40px 36px;
+  background: rgba(255, 255, 255, 0.72);
+  border-radius: 24px;
+  backdrop-filter: blur(12px);
+  box-shadow: 0 15px 40px rgba(0, 0, 0, 0.08);
+  color: #4E3B31;
+  line-height: 1;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.history-page .container:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 18px 48px rgba(0, 0, 0, 0.1);
+}
+
+.history-page .container h1 {
+  margin-top: 0;
+  margin-bottom: 28px;
+  font-size: 2rem;
+  text-align: center;
+  color: #5A4639;
+  letter-spacing: 0.6px;
+}
+
+/* Cards */
+.history-page .card {
+  background: rgba(255, 255, 255, 0.9);
+  border-radius: 18px;
+  padding: 22px 26px;
+  margin: 20px 0;
+  box-shadow: 0 6px 20px rgba(163, 192, 168, 0.15);
+  line-height: 1;
+  color: #40332a;
+  white-space: pre-wrap;
+  border-left: 2px solid rgba(144, 179, 157, 0.3);
+  transition: all 0.25s ease;
+}
+
+.history-page .card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 10px 25px rgba(144, 179, 157, 0.25);
+  border-left-color: rgba(144, 179, 157, 0.5);
+}
+
+.history-page .card p {
+  margin: 8px 0;
+}
+
+.history-page .card p strong {
+  color: #5C4B3A;
+  display: block;
+  margin-bottom: 4px;
+}
+
+/* Sentiment Tags */
+.history-page .sentiment {
+  font-weight: 700;
+  padding: 6px 14px;
+  border-radius: 18px;
+  display: inline-block;
+  margin-left: 2px;
+  font-size: 0.95rem;
+  vertical-align: middle;
+  letter-spacing: 0.3px;
+}
+
+.history-page .sentiment.positive {
+  background: rgba(107, 169, 125, 0.12);
+  color: #2f8b52;
+  border: 1px solid rgba(107, 169, 125, 0.2);
+}
+
+.history-page .sentiment.neutral {
+  background: rgba(193, 164, 91, 0.1);
+  color: #7b5f2b;
+  border: 1px solid rgba(193, 164, 91, 0.16);
+}
+
+.history-page .sentiment.negative {
+  background: rgba(217, 122, 117, 0.1);
+  color: #9b423f;
+  border: 1px solid rgba(217, 122, 117, 0.16);
+}
+
+/* Navigation Buttons */
+.history-page .container a {
+  display: inline-block;
+  margin: 26px 12px 0 0;
+  text-decoration: none;
+  padding: 12px 22px;
+  border-radius: 28px;
+  background: linear-gradient(to right, #A3C0A8, #91B39B);
+  color: white;
+  font-weight: 600;
+  box-shadow: 0 8px 16px rgba(163, 192, 168, 0.25);
+  transition: transform 0.25s ease, box-shadow 0.3s ease;
+}
+
+.history-page .container a:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 10px 22px rgba(144, 179, 157, 0.3);
+}
+
+/* Empty message */
+.history-page .container p.empty {
+  text-align: center;
+  color: #6b6b6b;
+  margin: 30px 0;
+  font-style: italic;
+}
+
+/* Responsive */
+@media (max-width: 720px) {
+  .history-page .container {
+    margin: 24px 16px;
+    padding: 22px;
+  }
+
+  .history-page .container h1 {
+    font-size: 1.6rem;
+    margin-bottom: 20px;
+  }
+
+  .history-page .card {
+    padding: 16px;
+    margin: 14px 0;
+  }
+
+  .history-page .container a {
+    display: block;
+    text-align: center;
+    margin: 16px auto 0;
+    width: 100%;
+    max-width: 240px;
+  }
+}
+
 
 #moodChart {
   width: 100% !important;
