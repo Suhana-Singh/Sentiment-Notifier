@@ -45,5 +45,6 @@ Happy-Harbour/
 🧍 User authentication for personal dashboards
 
 OUTPUT
-![WhatsApp Image 2025-11-04 at 00 35 08_1e96b960](https://github.com/user-attachments/assets/d4b679d9-4de7-4ee7-bad6-78436914f0d0)
+<img width="1435" height="803" alt="Screenshot 2025-11-11 at 23 21 13" src="https://github.com/user-attachments/assets/2b55e792-4b9b-407e-af5d-892c7d84f9f5" />
+
 
