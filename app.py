@@ -140,19 +140,24 @@ def history():
 def chart():
     return render_template('chart.html')
 
+from flask import jsonify
 
 @app.route('/chart-data')
 def chart_data():
     if os.path.exists(CSV_FILE):
-        df = pd.read_csv(CSV_FILE)
-        df = df.tail(10)
-        data = {
-            "labels": df["Timestamp"].tolist(),
-            "sentiments": df["Sentiment"].tolist()
-        }
-        return data
+        try:
+            df = pd.read_csv(CSV_FILE, usecols=["Timestamp", "Sentiment"], on_bad_lines='skip')
+            df = df.tail(10)
+            data = {
+                "labels": df["Timestamp"].tolist(),
+                "sentiments": df["Sentiment"].tolist()
+            }
+            return jsonify(data)
+        except Exception as e:
+            print("Error reading CSV:", e)
+            return jsonify({"labels": [], "sentiments": []})
     else:
-        return {"labels": [], "sentiments": []}
+        return jsonify({"labels": [], "sentiments": []})
 
 
 if __name__ == "__main__":

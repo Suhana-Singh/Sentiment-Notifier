@@ -3,64 +3,156 @@
 <head>
   <meta charset="UTF-8">
   <title>Mood Chart – Happy Harbour</title>
-  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap');
+
+    body {
+      font-family: "Poppins", sans-serif;
+      background: linear-gradient(135deg, #dbeeff, #f9f9ff);
+      color: #3a2f28;
+      text-align: center;
+      margin: 0;
+      padding: 0;
+    }
+
+    .container {
+      max-width: 800px;
+      margin: 60px auto;
+      background: #ffffff;
+      border-radius: 20px;
+      box-shadow: 0 4px 18px rgba(0, 0, 0, 0.08);
+      padding: 40px 30px;
+    }
+
+    h1 {
+      color: #4a3c34;
+      font-size: 28px;
+      font-weight: 600;
+      margin-bottom: 25px;
+    }
+
+    canvas {
+      width: 100% !important;
+      height: 420px !important;
+      margin-top: 10px;
+    }
+
+    a {
+      text-decoration: none;
+      color: #4a3c34;
+      margin: 0 10px;
+      font-weight: 500;
+      transition: all 0.3s ease;
+    }
+
+    a:hover {
+      color: #1b6d36;
+    }
+
+    footer {
+      margin-top: 30px;
+      font-size: 14px;
+      color: #6b5e55;
+    }
+  </style>
 </head>
+
 <body>
   <div class="container">
     <h1>📈 Your Mood Journey</h1>
-    <canvas id="moodChart" width="400" height="200"></canvas>
+    <canvas id="moodChart"></canvas>
     <br>
-    <a href="/">🏠 Back to Home</a> | 
+    <a href="/">🏠 Home</a> |
     <a href="/history">📜 Mood History</a>
+
+    <footer>Made with 💖 by Happy Harbour</footer>
   </div>
 
   <script>
     async function loadChart() {
-      const response = await fetch('/chart-data');
-      const data = await response.json();
+      try {
+        const response = await fetch('/chart-data');
+        const data = await response.json();
+        console.log("Chart data:", data);
 
-      const sentimentColors = {
-        "Positive": "#28a745",
-        "Neutral": "#6c757d",
-        "Negative": "#dc3545"
-      };
+        if (!data.labels || data.labels.length === 0) {
+          document.querySelector('.container').innerHTML +=
+            "<p style='color: gray;'>No mood entries yet. Write something first!</p>";
+          return;
+        }
 
-      const backgroundColors = data.sentiments.map(s => sentimentColors[s] || '#999');
+        const sentimentColors = {
+          "Positive": "#A8C3A0",  // Sage green
+          "Neutral": "#B9BDC9",   // Warm gray
+          "Negative": "#F4A6A6"   // Light rose red
+        };
 
-      new Chart(document.getElementById('moodChart'), {
-        type: 'bar',
-        data: {
-          labels: data.labels,
-          datasets: [{
-            label: 'Mood Sentiment',
-            data: data.sentiments.map(s => {
-              if (s === "Positive") return 3;
-              if (s === "Neutral") return 2;
-              if (s === "Negative") return 1;
-              return 0;
-            }),
-            backgroundColor: backgroundColors,
-          }]
-        },
-        options: {
-          scales: {
-            y: {
-              ticks: {
-                stepSize: 1,
-                callback: function(value) {
-                  if (value === 1) return "Negative";
-                  if (value === 2) return "Neutral";
-                  if (value === 3) return "Positive";
-                  return "";
+        const backgroundColors = data.sentiments.map(
+          s => sentimentColors[s] || "#999"
+        );
+
+        new Chart(document.getElementById("moodChart"), {
+          type: "bar",
+          data: {
+            labels: data.labels,
+            datasets: [
+              {
+                label: "Mood Sentiment",
+                data: data.sentiments.map(s => {
+                  if (s === "Positive") return 3;
+                  if (s === "Neutral") return 2;
+                  if (s === "Negative") return 1;
+                  return 0;
+                }),
+                backgroundColor: backgroundColors,
+                borderRadius: 12,
+              }
+            ]
+          },
+          options: {
+            scales: {
+              y: {
+                ticks: {
+                  stepSize: 1,
+                  color: "#3a2f28",
+                  callback: function(value) {
+                    if (value === 1) return "Negative 😔";
+                    if (value === 2) return "Neutral 😐";
+                    if (value === 3) return "Positive 😊";
+                    return "";
+                  }
+                },
+                beginAtZero: true,
+                max: 3.5,
+                grid: {
+                  color: "rgba(0,0,0,0.05)"
                 }
               },
-              beginAtZero: true,
-              max: 3.5
+              x: {
+                ticks: { color: "#3a2f28", autoSkip: true, maxRotation: 45 },
+                grid: { display: false }
+              }
+            },
+            plugins: {
+              legend: { display: false },
+              tooltip: {
+                callbacks: {
+                  label: function(ctx) {
+                    const val = ctx.raw;
+                    if (val === 1) return "Negative";
+                    if (val === 2) return "Neutral";
+                    if (val === 3) return "Positive";
+                  }
+                }
+              }
             }
           }
-        }
-      });
+        });
+      } catch (error) {
+        console.error("Error loading chart:", error);
+      }
     }
 
     loadChart();
