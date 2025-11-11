@@ -1,19 +1,45 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Happy Harbour 💖</title>
-  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}" />
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&family=Quicksand:wght@400;500;600&display=swap" rel="stylesheet">
 </head>
-<body>
-  <div class="container">
-    <h1>🌊 Happy Harbour 💬</h1>
-    <p>Welcome aboard! Write your thoughts and let us see how your day feels 🌤️</p>
-    <form action="/predict" method="post">
-      <textarea name="journal" placeholder="Write your daily journal entry here..." required></textarea>
-      <input type="email" name="emergency_email" placeholder="Enter emergency contact email" required>
-      <button type="submit">Check My Mood</button>
+<body style="background: url('{{ url_for('static', filename='sagegreen.jpeg') }}') no-repeat center center fixed; background-size: cover;">
 
-  </div>
+  <!-- Navbar -->
+  <nav class="navbar">
+    <div class="logo">
+      <img src="{{ url_for('static', filename='leaflogo.jpg') }}" alt="Mindful Journal Logo" />
+      <h2>Happy Harbour</h2>
+    </div>
+    <ul class="nav-links">
+      <li><a href="#">Home</a></li>
+      <li><a href="#">About</a></li>
+      <li><a href="#">Journal</a></li>
+      <li><a href="#">Contact</a></li>
+    </ul>
+  </nav>
+
+  <!-- Hero Section -->
+  <section class="hero">
+    <div class="content-box">
+      <div class="overlay"></div>
+      <div class="text-area">
+        <h1>Welcome to Your <span>Peaceful Space</span></h1>
+        <p class="calm-text">Take a deep breath, let your thoughts flow freely, and connect with your emotions 🌿</p>
+
+        <!-- ✅ Fixed form route + names to match app.py -->
+        <form class="journal-form" method="POST" action="/predict">
+          <textarea name="journal" placeholder="Write your daily journal entry here..." required></textarea>
+          <input type="email" name="emergency_email" placeholder="Enter emergency contact email" required />
+          <button type="submit">Check My Mood</button>
+        </form>
+      </div>
+    </div>
+  </section>
+
 </body>
 </html>
